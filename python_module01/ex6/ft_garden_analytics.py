@@ -1,5 +1,5 @@
 class Plants:
-    def __init__(self, name="Unknown plant", height=0, age=0):
+    def __init__(self, name, height, age):
         self.name = name
         self.height = height
         self.age = age
@@ -34,6 +34,9 @@ class Plants:
         else:
             check = "False"
         print(f"is {age} days more than a year? -> {check}")
+    @classmethod
+    def anonymous(cls, name="Unknown plant", height=0, age=0):
+        return cls(name, height, age)
     
 class Flower(Plants):
     def __init__(self, name, height, age, color, days, value):
@@ -141,7 +144,7 @@ if __name__ == "__main__":
     print(" ")
 
     print("=== Anonymous")
-    anonymous = Plants()
+    anonymous = Plants.anonymous()
     anonymous.show()
     print("[Statistics for Unknown plant]")
     anonymous.stats()

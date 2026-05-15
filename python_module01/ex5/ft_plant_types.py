@@ -1,81 +1,88 @@
 class Plants:
-    def __init__(self, name, height, age):
-        self.name = name
-        self.height = height
+    def __init__(self, name: str, height: float, age: int) -> None:
+        self.name = name.capitalize()
+        self.height = round(height, 1)
         self.age = age
-    def show(self):
-        print(f"{self.name}: {self.height:.1f}cm, {self.age} days old")
+
+    def show(self) -> None:
+        print(f"{self.name}: {round(self.height, 1)}cm, {self.age} days old")
+
 
 class Flower(Plants):
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: float, age: int, color: str) -> None:
         super().__init__(name, height, age)
-    def set_color(self, color):
         self.color = color
-    def show(self):
+
+    def show(self) -> None:
         super().show()
         print(f" color: {self.color}")
-    def bloom(self):
-        print(f" {self.name} has not bloomed yet")
-        print(f"[asking {self.name} to bloom]")
+
+    def bloom(self) -> None:
+        print(f""" {self.name} has not bloomed yet
+[asking {self.name.casefold()} to bloom]""")
         self.show()
         print(f" {self.name} is blooming beautifully!")
 
+
 class Tree(Plants):
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: float, age: int,
+                 trunk_dia: float) -> None:
         super().__init__(name, height, age)
-    def set_trunk_dia(self, trunk):
-        self.trunk = trunk
-    def show(self):
+        self.diameter = trunk_dia
+
+    def show(self) -> None:
         super().show()
-        print(f" Trunk diameter: {self.trunk}")
-    def produce_shade(self):
-        print(f"[asking the {self.name} to produce shade]")
-        print(f"Tree {self.name} now produces a shade of {self.height:.1f}cm long and {self.trunk:.1f}cm wide.")
+        print(f" Trunk diameter: {round(self.diameter, 1)}cm")
+
+    def produce_shade(self) -> None:
+        print(f"[asking the {self.name} to produce shade]"
+              f"Tree {self.name} now produces a shade of "
+              f"{round(self.height, 1)}cm long and "
+              f"{round(self.diameter, 1)}cm wide.""")
+
 
 class Vegetable(Plants):
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: int, age: int, season: str,
+                 value: int) -> None:
         super().__init__(name, height, age)
-    def set_growth(self, growth):
-        self.growth = growth
-    def set_h_season(self, month):
-        self.h_season = month
-    def set_n_value(self, value):
+        self.h_season = season
         self.n_value = value
-    def show(self):
+
+    def show(self) -> None:
         super().show()
-        print(f" Harvest season: {self.h_season}")
-        print(f" Nutrinional value: {self.n_value}")
-    def grow(self):
-        print(f"[make tomato grow and age for {self.growth} days]")
+        print(f""" Harvest season: {self.h_season}
+Nutrinional value: {self.n_value}""")
+
+    def grow(self, growth: int) -> None:
+        print(f"[make {self.name.casefold()} grow and age for {growth} days]")
         i = 1
-        days = range(i, round(self.growth) + 1)
+        days = range(i, round(growth) + 1)
         for i in days:
             self.height += 2.1
             self.age += 1
             self.n_value += 1
 
 
-if __name__ == "__main__":
+def ft_plant_types() -> None:
     print("=== Garden Plant Types ===")
     print("=== Flower")
-    rose = Flower("Rose", 15, 10)
-    rose.set_color("red")
+    rose = Flower("rose", 15.0, 10, "red")
     rose.show()
     rose.bloom()
     print(" ")
 
     print("=== Tree")
-    oak = Tree("Oak", 200, 365)
-    oak.set_trunk_dia(5)
+    oak = Tree("oak", 200.0, 365, 5.0)
     oak.show()
     oak.produce_shade()
     print(" ")
 
     print("=== Vegetable")
-    tomato = Vegetable("Tomato", 5, 10)
-    tomato.set_h_season("April")
-    tomato.set_n_value(0)
-    tomato.set_growth(20)
+    tomato = Vegetable("tomato", 5.0, 10, "April", 0)
     tomato.show()
-    tomato.grow()
+    tomato.grow(20)
     tomato.show()
+
+
+if __name__ == "__main__":
+    ft_plant_types()
